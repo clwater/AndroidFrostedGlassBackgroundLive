@@ -3,6 +3,8 @@ package com.clwater.forsted
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.camera.core.CameraSelector
+import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -16,8 +18,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.clwater.forsted.ui.theme.AndroidFrostedGlassBackgroundLiveTheme
+import com.google.common.util.concurrent.ListenableFuture
 
 class MainActivity : ComponentActivity() {
+    private lateinit var cameraProviderFuture: ListenableFuture<ProcessCameraProvider>
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -26,14 +31,14 @@ class MainActivity : ComponentActivity() {
     }
 
 
-
     @Preview(showBackground = true)
     @Composable
     fun DefaultPreview() {
         AndroidFrostedGlassBackgroundLiveTheme {
             // A surface container using the 'background' color from the theme
             Surface(modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background) {
-                Column() {
+                Column {
+                    VideoCaptureScreen()
 //                    SmallTopAppBar(
 //                        modifier = Modifier.background(MaterialTheme.colorScheme.primary),
 //                            title = { Text(text = stringResource(id = R.string.app_name)) },
